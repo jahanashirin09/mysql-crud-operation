@@ -12,7 +12,7 @@ const deleteStudent=async(req,res)=>{
             message: "Invalid Student ID",
         })
     }
-    const data=await db.query("DELETE FROM Student WHERE id=?",[studentId])
+    const data=await db.query("DELETE FROM users WHERE id=?",[studentId])
     if(!data){
         return res.status(500).send({
             success: false,

@@ -6,14 +6,14 @@ const db=require("../config/db")
 
 const createStudent=async(req,res)=>{
     try {
-        const{id,name,roll_no,division}=req.body
-        if(!id||!name||!roll_no||!division){
+        const{id,username,password,display_name}=req.body
+        if(!id||!username||!password||!display_name){
             return res.status(500).send({
                 success: false,
                 message: "Please provide all required fields",
             })
         }
-        const data=await db.query("INSERT INTO Student (id,name,roll_no,division) VALUES (?,?,?,?)",[id,name,roll_no,division])
+        const data=await db.query("INSERT INTO users (id,username,password,display_name) VALUES (?,?,?,?)",[id,username,password,display_name])
         if(!data){
             return res.status(404).send({
                 success: false,

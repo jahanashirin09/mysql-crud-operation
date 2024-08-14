@@ -14,8 +14,8 @@ const updateStudent= async(req,res) =>{
                 message: "Invalid Student ID",
             })
         }
-        const{name,roll_no,division}=req.body
-        const data=await db.query(`UPDATE Student SET name=?,roll_no=?,division=? WHERE id=?`,[name,roll_no,division,studentId])
+        const{username,password,display_name}=req.body
+        const data=await db.query(`UPDATE users SET username=?,password=?,display_name=? WHERE id=?`,[username,password,display_name,studentId])
         if(!data){
             return res.status(500).send({
                 success: false,

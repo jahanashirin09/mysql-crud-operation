@@ -1,14 +1,16 @@
 const express=require("express");
 const dotenv =require("dotenv");
-const mysqlPool = require("../config/db");
+const mysqlPool = require("./config/db");
 const studentRoutes=require('./routes/studentRoutes')
+
+
 
 dotenv.config();
 
 const app=express();
 
 app.use(express.json());
-app.use("/api/v1/Student",studentRoutes);
+app.use("/api/v1/users",studentRoutes);
 
 
 
@@ -21,7 +23,7 @@ const PORT=process.env.PORT||8000;
 
 
 mysqlPool
-.query("SELECT * FROM Student")
+.query("SELECT * FROM users")
 .then(()=>{
     console.log("Database Connected");
 

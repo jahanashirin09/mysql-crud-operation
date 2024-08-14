@@ -11,7 +11,7 @@ const getStudentsByID =async(req,res)=>{
                 message: "Invalid Student ID",
             })
         }
-        const data=await db.query("SELECT * FROM Student WHERE id=?",[studentId])
+        const data=await db.query("SELECT * FROM users WHERE id=?",[studentId])
         if(!data){
             return res.status(404).send({
                 success: false,

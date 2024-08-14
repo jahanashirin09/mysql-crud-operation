@@ -4,7 +4,7 @@ const db=require("../config/db")
 //GET ALL STUDENT LIST
 const getStudents=async(req,res)=>{
     try{
-        const data=await db.query("SELECT * FROM Student");
+        const data=await db.query("SELECT * FROM users");
         if(!data){
             return res.status(404).send({
              success: false,
