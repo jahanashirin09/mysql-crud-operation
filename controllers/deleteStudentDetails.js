@@ -1,4 +1,5 @@
 const db=require("../config/db")
+const {validationResult}=require("express-validator")
 
 //DELETE STUDENT
 
@@ -6,6 +7,11 @@ const db=require("../config/db")
 const deleteStudent=async(req,res)=>{
    try {
     const studentId=req.params.id
+    const errors=validationResult(req);
+    if(!errors.isEmpty()){
+        res.json(errors.array())
+
+    }else{
     if(!studentId){
         return res.status(404).send({
             success: false,
@@ -23,6 +29,7 @@ const deleteStudent=async(req,res)=>{
         success: true,
         message: "Student deleted successfully",
     })
+}
     
    } catch (error) {
     console.log(error);

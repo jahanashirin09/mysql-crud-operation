@@ -2,6 +2,7 @@ const db=require("../config/db")
 
 
 
+
 //CREATE STUDENT
 
 const createStudent=async(req,res)=>{

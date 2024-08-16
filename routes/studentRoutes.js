@@ -4,43 +4,38 @@ const { getStudentsByID } = require("../controllers/getStudentById");
 const { createStudent } = require("../controllers/createStudent");
 const { updateStudent } = require("../controllers/updateStudentDetails");
 const { deleteStudent } = require("../controllers/deleteStudentDetails");
+const {login}=require("../controllers/login")
+const {verifyToken}=require("../controllers/login")
+const {check}=require("express-validator")
+
 const mysqlPool =require("../config/db")
-const db=require("../config/db")
-var jwt=require("jsonwebtoken");
+
 
 const router=express.Router()
 
-router.post("/login", async(req,res)=>{
-    if(req.body.username==undefined || req.body.password==undefined){
-        res.status(500).send({error:"authentication failed"})
-    }
-    let username=req.body.username;
-    let password=req.body.password;
-    let qr=`select display_name from users where username='${username}' and password=sha1('${password}')`;
+router.post("/login", login);
 
-
-})
 
 //GET ALL STUDENT LIST
-router.get('/getall',getStudents);
+router.get('/getall',verifyToken,getStudents);
 
 
 
 //GET STUDENT BY ID
-router.get('/get/:id',getStudentsByID);
+router.get('/get/:id',verifyToken,getStudentsByID);
 
 
 //CREAT STUDENT||POST
 
-router.post('/create',createStudent);
+router.post('/create',verifyToken,createStudent);
 
 
 //UPDATE STUDENT
 
-router.put('/update/:id',updateStudent);
+router.put('/update/:id',verifyToken,updateStudent);
 
 //DELETE STUDENT
 
-router.delete('/delete/:id',deleteStudent)
+router.delete('/delete/:id',[check("id").exists().withMessage("id is required").isNumeric().withMessage("id should be only numbers")],verifyToken,deleteStudent)
 
 module.exports=router;
